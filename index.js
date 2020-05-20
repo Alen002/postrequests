@@ -4,9 +4,15 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 app.use(express.json()); 
+
+
+
 app.use(morgan('short'));  //short or combines
 app.use(express.static('./public/')); //server is serving all the files inside the public folder
+
 app.use(bodyParser.urlencoded({extended: false})); // a piece of middleware to helps process request easier
+/* app.use(bodyParser.json()); */
+
 
 app.listen(3000, () => {console.log('Server is up and running on 3000')});
 
@@ -49,8 +55,8 @@ app.post(('/user_create'), (req, res) => {
   console.log('Trying to create a new user:');
   const user = {
     id: users.length + 1,
-    firstName: 12,
-    lastName: 2
+    firstName: req.body.first_name,
+    lastName: req.body.last_name
   };
   users.push(user);
   console.log(user);
